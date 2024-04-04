@@ -1,0 +1,39 @@
+<mat-stepper 
+[linear]="true" 
+[selectedIndex]="selectedIndex" 
+(selectionChange)="onStepSelectionChange($event)"
+[animationDuration]="'600'"
+orientation="horizontal"
+#stepper>
+    <mat-step [editable]="firstForm.value.isRequired == 'DONE'" [stepControl]="firstForm">
+        <app-form1 (next)="nextStep()" (firstStepDone)="isfirstStepDone()"></app-form1>
+    </mat-step>
+    <mat-step [editable]="secondForm.value.isRequired == 'DONE'" [stepControl]="secondForm">
+        <app-form2 [data]="parentData" (next)="previousStep()" (next)="nextStep()" (secondStepDone)="isSecondStepDone()"></app-form2>
+    </mat-step>
+    <mat-step [editable]="thirdForm.value.isRequired == 'DONE'" [stepControl]="thirdForm">
+        <app-form3 (next)="previousStep()" (next)="nextStep()" (thirdStepDone)="isThirdStepDone()"></app-form3>
+    </mat-step>
+    <mat-step [editable]="editable">
+        <app-form4 (next)="previousStep()" (next)="nextStep()"></app-form4>
+    </mat-step>
+    <mat-step [editable]="editable">
+        <app-form5 (next)="previousStep()"></app-form5>
+    </mat-step>
+</mat-stepper>
+
+<button mat-raised-button (click)="isEditable()">{{editable == true ? "Editable Enabled":"Editable Disabled"}}</button>
+
+<div style="text-align: center;">
+    <button mat-raised-button (click)="previousStep()">Previous</button>
+    <button mat-raised-button (click)="nextStep()">Next</button>
+    <br /><br />
+    <button mat-raised-button (click)="goToStep(0)">Step 1</button>
+    <button mat-raised-button (click)="goToStep(1)">Step 2</button>
+    <button mat-raised-button (click)="goToStep(2)">Step 3</button>
+  </div>
+  
+
+<div *ngIf="showMessage">
+    Function called from Form 1 in Stepper Layout!
+</div>
